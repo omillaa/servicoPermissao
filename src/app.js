@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');
+const swaggerDocument = require('./docs/swagger-output.json');
 
 const app = express();
 app.use(cors());
@@ -20,8 +21,9 @@ app.use('/roles', roleRoutes);
 app.use('/permissions', permissionRoutes);
 
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
-const PORT = process.env.PORT || 3009;
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+app.listen(3000, () => {
+    console.log('Servidor rodando na porta 3000');
+  });
