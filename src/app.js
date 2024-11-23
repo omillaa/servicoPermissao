@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 const userRoutes = require('./routes/users');
 const systemRoutes = require('./routes/systems');
 const roleRoutes = require('./routes/roles');
-const permissionRoutes = require('./routes/permissions');
+const permissionRoutes = require('./routes/permission');
 
 app.use('/users', userRoutes);
 app.use('/systems', systemRoutes);
@@ -23,5 +23,5 @@ app.use('/permissions', permissionRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3009;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
