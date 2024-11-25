@@ -82,6 +82,9 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "404": {
             "description": "Not Found"
           },
@@ -210,6 +213,17 @@
       }
     },
     "/roles/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
       "post": {
         "description": "",
         "parameters": [
@@ -219,10 +233,10 @@
             "schema": {
               "type": "object",
               "properties": {
-                "nome": {
+                "name": {
                   "example": "any"
                 },
-                "sistema_nome": {
+                "system_id": {
                   "example": "any"
                 }
               }
@@ -233,22 +247,8 @@
           "201": {
             "description": "Created"
           },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
@@ -269,10 +269,10 @@
             "schema": {
               "type": "object",
               "properties": {
-                "nome": {
+                "name": {
                   "example": "any"
                 },
-                "id_sistema": {
+                "system_id": {
                   "example": "any"
                 }
               }
@@ -283,11 +283,8 @@
           "200": {
             "description": "OK"
           },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "400": {
+            "description": "Bad Request"
           }
         }
       },
@@ -305,11 +302,8 @@
           "200": {
             "description": "OK"
           },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "400": {
+            "description": "Bad Request"
           }
         }
       }

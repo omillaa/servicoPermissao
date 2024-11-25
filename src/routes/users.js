@@ -36,7 +36,7 @@ router.put('/:id', async (req, res) => {
   try {
     const pool = await poolPromise;
     const result = await pool.request()
-      .input('id', sql.UniqueIdentifier, id)
+      .input('id', sql.Int, id)
       .input('name', sql.NVarChar, name)
       .input('email', sql.NVarChar, email)
       .query('UPDATE users SET name = @name, email = @email WHERE id = @id');
@@ -48,8 +48,12 @@ router.put('/:id', async (req, res) => {
     }
   } catch (err) {
     console.error('Erro ao atualizar usuário:', err);
-    res.status(500).send('Erro interno do servidor');
+    res.status(500).json({ message: 'Erro interno do servidor', error: err.message });
   }
+  if (!id || !name || !email) {
+    return res.status(400).send('Dados inválidos. Verifique o ID, nome e email.');
+  }
+  
 });
 
 
@@ -59,7 +63,7 @@ router.delete('/:id', async (req, res) => {
   try {
     const pool = await poolPromise;
     const result = await pool.request()
-      .input('id', sql.UniqueIdentifier, id)
+      .input('id', sql.Int, id)
       .query('DELETE FROM users WHERE id = @id');
 
     if (result.rowsAffected > 0) {
