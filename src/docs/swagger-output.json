@@ -213,17 +213,6 @@
       }
     },
     "/roles/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      },
       "post": {
         "description": "",
         "parameters": [
@@ -247,8 +236,19 @@
           "201": {
             "description": "Created"
           },
-          "400": {
-            "description": "Bad Request"
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -283,8 +283,11 @@
           "200": {
             "description": "OK"
           },
-          "400": {
-            "description": "Bad Request"
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -302,8 +305,11 @@
           "200": {
             "description": "OK"
           },
-          "400": {
-            "description": "Bad Request"
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -318,10 +324,10 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
+                "nome": {
                   "example": "any"
                 },
-                "sistema_nome": {
+                "id_sistema": {
                   "example": "any"
                 }
               }
@@ -368,10 +374,10 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
+                "nome": {
                   "example": "any"
                 },
-                "sistema_nome": {
+                "id_sistema": {
                   "example": "any"
                 }
               }
