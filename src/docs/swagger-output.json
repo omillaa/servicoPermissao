@@ -327,7 +327,7 @@
                 "nome": {
                   "example": "any"
                 },
-                "id_sistema": {
+                "system_id": {
                   "example": "any"
                 }
               }
@@ -337,6 +337,9 @@
         "responses": {
           "201": {
             "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "404": {
             "description": "Not Found"
@@ -377,7 +380,7 @@
                 "nome": {
                   "example": "any"
                 },
-                "id_sistema": {
+                "system_id": {
                   "example": "any"
                 }
               }
@@ -387,6 +390,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "404": {
             "description": "Not Found"
