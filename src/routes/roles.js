@@ -76,15 +76,15 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// Endpoint para atribuir uma permissão a um papel
+
 router.post('/:roleId/permissions', async (req, res) => {
-    const { roleId } = req.params; // ID do papel (role)
-    const { permissionId } = req.body; // ID da permissão (permission)
+    const { roleId } = req.params; 
+    const { permissionId } = req.body; 
   
     try {
       const pool = await poolPromise;
       
-      // Verificando se o papel e a permissão existem
+     
       const roleCheck = await pool.request()
         .input('roleId', sql.Int, roleId)
         .query('SELECT * FROM roles WHERE id = @roleId');
@@ -93,12 +93,12 @@ router.post('/:roleId/permissions', async (req, res) => {
         .input('permissionId', sql.Int, permissionId)
         .query('SELECT * FROM permissions WHERE id = @permissionId');
   
-      // Se o papel ou a permissão não existirem
+      
       if (roleCheck.recordset.length === 0 || permissionCheck.recordset.length === 0) {
         return res.status(404).send('Papel ou Permissão não encontrado');
       }
   
-      // Inserindo a associação entre o papel e a permissão na tabela role_permissions
+      
       const result = await pool.request()
         .input('roleId', sql.Int, roleId)
         .input('permissionId', sql.Int, permissionId)
