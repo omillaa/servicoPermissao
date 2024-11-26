@@ -76,18 +76,38 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
-    const { name, system_id } = req.body; 
+// Endpoint para atribuir uma permissão a um papel
+router.post('/:roleId/permissions', async (req, res) => {
+    const { roleId } = req.params; // ID do papel (role)
+    const { permissionId } = req.body; // ID da permissão (permission)
+  
     try {
       const pool = await poolPromise;
+      
+      // Verificando se o papel e a permissão existem
+      const roleCheck = await pool.request()
+        .input('roleId', sql.Int, roleId)
+        .query('SELECT * FROM roles WHERE id = @roleId');
+      
+      const permissionCheck = await pool.request()
+        .input('permissionId', sql.Int, permissionId)
+        .query('SELECT * FROM permissions WHERE id = @permissionId');
+  
+      // Se o papel ou a permissão não existirem
+      if (roleCheck.recordset.length === 0 || permissionCheck.recordset.length === 0) {
+        return res.status(404).send('Papel ou Permissão não encontrado');
+      }
+  
+      // Inserindo a associação entre o papel e a permissão na tabela role_permissions
       const result = await pool.request()
-        .input('name', sql.NVarChar, name)
-        .input('system_id', sql.Int, system_id)
-        .query('INSERT INTO roles (name, system_id) VALUES (@name, @system_id)');
-      res.status(201).send('Papel cadastrado com sucesso!');
+        .input('roleId', sql.Int, roleId)
+        .input('permissionId', sql.Int, permissionId)
+        .query('INSERT INTO role_permissions (role_id, permission_id) VALUES (@roleId, @permissionId)');
+  
+      res.status(201).send('Permissão atribuída ao papel com sucesso');
     } catch (err) {
-      console.error('Erro ao cadastrar papel:', err);
-      res.status(500).json({ message: 'Erro interno do servidor', error: err.message });
+      console.error('Erro ao atribuir permissão ao papel:', err);
+      res.status(500).send('Erro interno do servidor');
     }
   });
   
