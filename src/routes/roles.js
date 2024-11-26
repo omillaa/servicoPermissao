@@ -76,4 +76,20 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+router.post('/', async (req, res) => {
+    const { name, system_id } = req.body; 
+    try {
+      const pool = await poolPromise;
+      const result = await pool.request()
+        .input('name', sql.NVarChar, name)
+        .input('system_id', sql.Int, system_id)
+        .query('INSERT INTO roles (name, system_id) VALUES (@name, @system_id)');
+      res.status(201).send('Papel cadastrado com sucesso!');
+    } catch (err) {
+      console.error('Erro ao cadastrar papel:', err);
+      res.status(500).json({ message: 'Erro interno do servidor', error: err.message });
+    }
+  });
+  
+
 module.exports = router;
